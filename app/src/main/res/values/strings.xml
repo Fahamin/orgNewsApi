@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Usa News Live</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open">Drawer Open</string>
+    <string name="navigation_drawer_close">Drawer Closed</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -10,4 +10,17 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="open">open</string>
+
+
+    <string name="fb_banner">375376229752233_375377586418764</string>
+    <string name="facebook_interstial">375376229752233_375376523085537</string>
+
+
+    <string name="header_text">NewsViews</string>
+    <string name="sample">Sample</string>
+    <string name="date_time">10-12-2018 "  "T12:10:21</string>
+    <string name="view_more">Read More</string>
+    <string name="title_activity_details">International News Live</string>
+
 </resources>

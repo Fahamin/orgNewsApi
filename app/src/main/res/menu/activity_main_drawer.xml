@@ -5,16 +5,140 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:id="@+id/abcnews"
+            android:icon="@drawable/browse"
+            android:title="ABC News" />
+
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/australiafinan"
+            android:icon="@drawable/browse"
+            android:title="AUSTRALLIAN FINANCIAL RE" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/bbc"
+            android:icon="@drawable/browse"
+            android:title="BBC News" />
+
+        <item
+            android:id="@+id/cnnID"
+            android:icon="@drawable/browse"
+            android:title="CNN"/>
+
+        <item
+            android:id="@+id/cryptoID"
+            android:icon="@drawable/browse"
+            android:title="Crypto Coins News"/>
+        <item
+            android:id="@+id/dailymailID"
+            android:icon="@drawable/browse"
+            android:title="Daily Mail"/>
+        <item
+            android:id="@+id/espnID"
+            android:icon="@drawable/browse"
+            android:title="ESPN"/>
+        <item
+            android:id="@+id/foxID"
+            android:icon="@drawable/browse"
+            android:title="FOX News"/>
+        <item
+            android:id="@+id/gurdianID"
+            android:icon="@drawable/browse"
+            android:title="The Gurdian UK"/>
+
+        <item
+            android:id="@+id/newMagineID"
+            android:icon="@drawable/browse"
+            android:title="New York Magazine"/>
+        <item
+            android:id="@+id/neyworktimeID"
+            android:icon="@drawable/browse"
+            android:title="The New York Times"/>
+        <item
+            android:id="@+id/wallStreet"
+            android:icon="@drawable/browse"
+            android:title="The Wall Street Journal"/>
+        <item
+            android:id="@+id/wasintonPost"
+            android:icon="@drawable/browse"
+            android:title="The Washington Post"/>
+        <item
+            android:id="@+id/usaToday"
+            android:icon="@drawable/browse"
+            android:title="Usa Today"/>
     </group>
+    <item android:title="Country News">
+        <menu>
+
+            <item
+                android:id="@+id/australiaID"
+                android:icon="@drawable/browse"
+                android:title="Australia"/>
+            <item
+                android:id="@+id/usaID"
+                android:icon="@drawable/browse"
+                android:title="USA"/>
+            <item
+                android:id="@+id/chinaID"
+                android:icon="@drawable/browse"
+                android:title="China"/>
+            <item
+                android:id="@+id/braxilID"
+                android:icon="@drawable/browse"
+                android:title="Brazil"/>
+            <item
+                android:id="@+id/mexicoID"
+                android:icon="@drawable/browse"
+                android:title="MEXICO"/>
+            <item
+                android:id="@+id/newzelanID"
+                android:icon="@drawable/browse"
+                android:title="NEW Zealand"/>
+            <item
+                android:id="@+id/rausiaID"
+                android:icon="@drawable/browse"
+                android:title="Russia"/>
+            <item
+                android:id="@+id/uaeID"
+                android:icon="@drawable/browse"
+                android:title="UAE"/>
+            <item
+                android:id="@+id/egyptID"
+                android:icon="@drawable/browse"
+                android:title="EGYPT"/>
+            <item
+                android:id="@+id/southaffircaID"
+                android:icon="@drawable/browse"
+                android:title="South Affrica" />
+
+            <item
+                android:id="@+id/turkeyID"
+                android:icon="@drawable/browse"
+                android:title="Turkey"/>
+
+            <item
+                android:id="@+id/suadiID"
+                android:icon="@drawable/browse"
+                android:title="Saudi Arabia"/>
+
+            <item
+                android:id="@+id/japanID"
+                android:icon="@drawable/browse"
+                android:title="JAPAN" />
+
+        </menu>
+    </item>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_baseline_search_24"
+                android:title="Share" />
+
+
+            <!-- <item
+                 android:id="@+id/nav_send"
+                 android:icon="@drawable/ic_menu_send"
+                 android:title="Send" />-->
+        </menu>
+    </item>
 </menu>
