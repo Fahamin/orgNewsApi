@@ -3,6 +3,7 @@ package com.news.livenews.worldwidenews.view
 import ArticleAdapter
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -15,26 +16,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.fahamin.hiltmvvmkotlincoroutin.viewModel.MainActivityViewModel
 import com.google.android.material.navigation.NavigationView
-import com.news.livenews.worldwidenews.Constance.ABC
-import com.news.livenews.worldwidenews.Constance.API_KEY
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.news.livenews.worldwidenews.Constance.API_KEY2
 import com.news.livenews.worldwidenews.Constance.API_KEY3
 import com.news.livenews.worldwidenews.Constance.API_KEY4
 import com.news.livenews.worldwidenews.Constance.AUSTRALIA
-import com.news.livenews.worldwidenews.Constance.AUSTRLIANFINACIAL
-import com.news.livenews.worldwidenews.Constance.BBC
 import com.news.livenews.worldwidenews.Constance.BRAZIL
 import com.news.livenews.worldwidenews.Constance.CHINA
-import com.news.livenews.worldwidenews.Constance.CNN
-import com.news.livenews.worldwidenews.Constance.CRPYPTO
-import com.news.livenews.worldwidenews.Constance.DAILYMAIL
-import com.news.livenews.worldwidenews.Constance.ESPN
 import com.news.livenews.worldwidenews.Constance.EYGPT
-import com.news.livenews.worldwidenews.Constance.FOX
-import com.news.livenews.worldwidenews.Constance.GURDIAN
 import com.news.livenews.worldwidenews.Constance.JAPNA
 import com.news.livenews.worldwidenews.Constance.MEXICO
-import com.news.livenews.worldwidenews.Constance.NEWYORKAGAZINE
 import com.news.livenews.worldwidenews.Constance.NEWZELAND
 import com.news.livenews.worldwidenews.Constance.RAUSIA
 import com.news.livenews.worldwidenews.Constance.SAUDY
@@ -42,9 +36,6 @@ import com.news.livenews.worldwidenews.Constance.SOUTHAFFRICA
 import com.news.livenews.worldwidenews.Constance.TURKEY
 import com.news.livenews.worldwidenews.Constance.UAE
 import com.news.livenews.worldwidenews.Constance.USA
-import com.news.livenews.worldwidenews.Constance.USATODAY
-import com.news.livenews.worldwidenews.Constance.WALLSTREET
-import com.news.livenews.worldwidenews.Constance.WASHINGTON
 import com.news.livenews.worldwidenews.R
 import com.news.livenews.worldwidenews.databinding.ActivityMainBinding
 import com.news.livenews.worldwidenews.interfaceall.ItemClickListener
@@ -52,15 +43,19 @@ import com.news.livenews.worldwidenews.model.Articles
 import com.news.livenews.worldwidenews.model.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     ItemClickListener {
-
+    lateinit private var sc: String
     lateinit var list: List<Articles>
     private lateinit var binding: ActivityMainBinding
     lateinit var mainActivityViewModel: MainActivityViewModel
     lateinit var articleAdapter: ArticleAdapter
     lateinit var drawerLayout: DrawerLayout
+
+    var referenceadmob = FirebaseDatabase.getInstance().getReference("adid")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -75,12 +70,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         drawerLayout = binding.drawerLayout
         val toggle = ActionBarDrawerToggle(
-                this,
-                drawerLayout,
-                toolbar,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close
-            )
+            this,
+            drawerLayout,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
@@ -88,6 +83,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView: NavigationView = binding.navView
         navigationView.setNavigationItemSelectedListener(this);
         list = ArrayList()
+        getSc()
         mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
         mainActivityViewModel.getCountryNews(USA, API_KEY3)
@@ -95,6 +91,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     fun setCountryNews() {
+        getSc()
+
         list = ArrayList()
         mainActivityViewModel.countryNews.observe(this)
         {
@@ -107,11 +105,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 }
                 is NetworkResult.Success -> {
                     list = it.data.body()!!.articles
-                    articleAdapter = ArticleAdapter(list, this)
-                    binding.appBarMain.contenMain.rvMovies.apply {
-                        layoutManager = LinearLayoutManager(context)
-                        adapter = articleAdapter
+
+                    if (!sc.equals("0")) {
+                        articleAdapter = ArticleAdapter(list, this)
+                        binding.appBarMain.contenMain.rvMovies.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            adapter = articleAdapter
+                        }
                     }
+
                     binding.appBarMain.contenMain.progressbar.isVisible = false
 
                 }
@@ -134,16 +136,31 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 is NetworkResult.Success -> {
                     list = it.data.body()!!.articles
 
-                    articleAdapter = ArticleAdapter(list, this)
-                    binding.appBarMain.contenMain.rvMovies.apply {
-                        layoutManager = LinearLayoutManager(context)
-                        adapter = articleAdapter
+                    if (!sc.equals("0")) {
+                        articleAdapter = ArticleAdapter(list, this)
+                        binding.appBarMain.contenMain.rvMovies.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            adapter = articleAdapter
+                        }
                     }
+
                     binding.appBarMain.contenMain.progressbar.isVisible = false
 
                 }
             }
         }
+    }
+
+
+    fun getSc() {
+        referenceadmob.child("sc").addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                sc = dataSnapshot.value.toString()
+                Log.e("s", sc)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -154,58 +171,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.abcnews -> {
-                mainActivityViewModel.getPaperNews(ABC, API_KEY2)
-                setPaperNews()
-            }
-            R.id.bbc -> {
-                mainActivityViewModel.getPaperNews(BBC, API_KEY2)
-                setPaperNews()
-            }
-            R.id.australiafinan -> {
-                mainActivityViewModel.getPaperNews(AUSTRLIANFINACIAL, API_KEY2)
-                setPaperNews()
-            }
-            R.id.foxID -> {
-                mainActivityViewModel.getPaperNews(FOX, API_KEY2)
-                setPaperNews()
-            }
-            R.id.wasintonPost -> {
-                mainActivityViewModel.getPaperNews(WASHINGTON, API_KEY)
-                setPaperNews()
-            }
-            R.id.usaToday -> {
-                mainActivityViewModel.getPaperNews(USATODAY, API_KEY)
-                setPaperNews()
-            }
-            R.id.wallStreet -> {
-                mainActivityViewModel.getPaperNews(WALLSTREET, API_KEY)
-                setPaperNews()
-            }
-            R.id.gurdianID -> {
-                mainActivityViewModel.getPaperNews(GURDIAN, API_KEY)
-                setPaperNews()
-            }
-            R.id.cnnID -> {
-                mainActivityViewModel.getPaperNews(CNN, API_KEY)
-                setPaperNews()
-            }
-            R.id.cryptoID -> {
-                mainActivityViewModel.getPaperNews(CRPYPTO, API_KEY3)
-                setPaperNews()
-            }
-            R.id.dailymailID -> {
-                mainActivityViewModel.getPaperNews(DAILYMAIL, API_KEY3)
-                setPaperNews()
-            }
-            R.id.espnID -> {
-                mainActivityViewModel.getPaperNews(ESPN, API_KEY3)
-                setPaperNews()
-            }
-            R.id.newMagineID -> {
-                mainActivityViewModel.getPaperNews(NEWYORKAGAZINE, API_KEY3)
-                setPaperNews()
-            }
+
             R.id.australiaID -> {
                 mainActivityViewModel.getCountryNews(AUSTRALIA, API_KEY3)
                 setCountryNews()

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Usa News Live</string>
+    <string name="app_name">Usa Live</string>
     <string name="navigation_drawer_open">Drawer Open</string>
     <string name="navigation_drawer_close">Drawer Closed</string>
     <string name="nav_header_title">Android Studio</string>

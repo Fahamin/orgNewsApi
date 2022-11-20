@@ -23,6 +23,7 @@ object Constance {
     var SCIENTICS = "new-scientist"
     var NEWYORKAGAZINE = "new-york-magazine"
     var NEWWORKTIME = "the-new-york-times"
+
     var AUSTRALIA = "au" //australia
     var BRAZIL = "br" //brazil
     var MEXICO = "mx" //mexio
