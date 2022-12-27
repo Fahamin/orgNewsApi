@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Usa Live</string>
+    <string name="app_name">Country Update</string>
     <string name="navigation_drawer_open">Drawer Open</string>
     <string name="navigation_drawer_close">Drawer Closed</string>
     <string name="nav_header_title">Android Studio</string>
@@ -13,9 +13,33 @@
     <string name="open">open</string>
 
 
-    <string name="fb_banner">375376229752233_375377586418764</string>
-    <string name="facebook_interstial">375376229752233_375376523085537</string>
 
+    <string name="facebook_app_id"> </string>
+    <string name="fb_banner_id"> </string>
+    <string name="fb_insta_id"> </string>
+
+
+
+    <string name="admob_insta_id">ca-app-pub-6013605396446078/7589448506</string>
+    <string name="admob_app_id">ca-app-pub-6013605396446078~9844910904</string>
+    <string name="admob_banner_id">ca-app-pub-6013605396446078/1215611848</string>
+
+
+
+<!--
+
+    //testadmob
+
+    <string name="facebook_app_id"> </string>
+    <string name="fb_banner_id"> </string>
+    <string name="fb_insta_id"> </string>
+
+
+    <string name="admob_insta_id">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="admob_app_id">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="admob_native_id">ca-app-pub-3940256099942544/2247696110</string>
+    <string name="admob_banner_id">ca-app-pub-3940256099942544/6300978111</string>
+-->
 
     <string name="header_text">NewsViews</string>
     <string name="sample">Sample</string>

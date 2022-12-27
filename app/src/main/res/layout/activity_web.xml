@@ -5,9 +5,15 @@
     android:orientation="vertical"
     tools:context=".view.WebActivity">
 
+        <FrameLayout
+            android:id="@+id/ad_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
         <WebView
             android:id="@+id/webViewID"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
 </LinearLayout>

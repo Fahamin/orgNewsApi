@@ -18,11 +18,13 @@ import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.news.livenews.worldwidenews.R;
+import com.news.livenews.worldwidenews.Utils.Fun;
 
 public class WebActivity extends AppCompatActivity {
     private WebView webView;
@@ -39,7 +41,9 @@ public class WebActivity extends AppCompatActivity {
         string = getIntent().getStringExtra("url");
 
         wevViewfunction();
-
+        new Fun(this);
+        FrameLayout adContainerView = findViewById(R.id.ad_view_container);
+        Fun.showBannerAds(adContainerView, this);
     }
 
     private void wevViewfunction() {

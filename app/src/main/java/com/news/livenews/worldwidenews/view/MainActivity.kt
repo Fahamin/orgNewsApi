@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.FrameLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -37,6 +38,7 @@ import com.news.livenews.worldwidenews.Constance.TURKEY
 import com.news.livenews.worldwidenews.Constance.UAE
 import com.news.livenews.worldwidenews.Constance.USA
 import com.news.livenews.worldwidenews.R
+import com.news.livenews.worldwidenews.Utils.Fun
 import com.news.livenews.worldwidenews.databinding.ActivityMainBinding
 import com.news.livenews.worldwidenews.interfaceall.ItemClickListener
 import com.news.livenews.worldwidenews.model.Articles
@@ -47,7 +49,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
     ItemClickListener {
-    lateinit private var sc: String
+    var sc = "8";
     lateinit var list: List<Articles>
     private lateinit var binding: ActivityMainBinding
     lateinit var mainActivityViewModel: MainActivityViewModel
@@ -83,11 +85,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val navigationView: NavigationView = binding.navView
         navigationView.setNavigationItemSelectedListener(this);
         list = ArrayList()
+
         getSc()
         mainActivityViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
         mainActivityViewModel.getCountryNews(USA, API_KEY3)
         setCountryNews()
+
+        Fun(this)
+        val adContainerView = findViewById<FrameLayout>(R.id.ad_view_container)
+        Fun.showBannerAds(adContainerView, this)
     }
 
     fun setCountryNews() {
@@ -173,54 +180,79 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
 
             R.id.australiaID -> {
+                Fun.addShow()
                 mainActivityViewModel.getCountryNews(AUSTRALIA, API_KEY3)
                 setCountryNews()
             }
             R.id.braxilID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(BRAZIL, API_KEY3)
                 setCountryNews()
             }
             R.id.usaID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(USA, API_KEY2)
                 setCountryNews()
             }
             R.id.rausiaID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(RAUSIA, API_KEY2)
                 setCountryNews()
             }
             R.id.turkeyID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(TURKEY, API_KEY4)
                 setCountryNews()
             }
             R.id.chinaID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(CHINA, API_KEY4)
                 setCountryNews()
             }
             R.id.uaeID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(UAE, API_KEY4)
                 setCountryNews()
             }
             R.id.egyptID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(EYGPT, API_KEY4)
                 setCountryNews()
             }
             R.id.newzelanID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(NEWZELAND, API_KEY4)
                 setCountryNews()
             }
             R.id.mexicoID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(MEXICO, API_KEY4)
                 setCountryNews()
             }
             R.id.southaffircaID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(SOUTHAFFRICA, API_KEY4)
                 setCountryNews()
             }
             R.id.japanID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(JAPNA, API_KEY4)
                 setCountryNews()
             }
             R.id.suadiID -> {
+                Fun.addShow()
+
                 mainActivityViewModel.getCountryNews(SAUDY, API_KEY4)
                 setCountryNews()
             }
@@ -231,6 +263,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun itemClick(pos: Int) {
+        Fun.addShow()
+
         val intent = Intent(this, WebActivity::class.java)
         intent.putExtra("url", list[pos].url)
         startActivity(intent)
