@@ -10,12 +10,12 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/iconp"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/iconp_round"
+        android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.UsaNewsLive"
-        tools:targetApi="31">
+        android:theme="@style/Theme.UsaNewsLive">
+
         <activity
             android:name=".view.WebActivity"
             android:exported="false">
