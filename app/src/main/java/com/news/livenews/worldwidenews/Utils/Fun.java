@@ -43,14 +43,32 @@ public class Fun {
     private static int admobon = 0;
     public static int nc = 15;
     public static DatabaseReference referenceadmob = FirebaseDatabase.getInstance().getReference("adid");
+    public static String sc = "0";
 
     //Flutter t finis420
     public Fun(Activity activity) {
         this.activity = activity;
         getDiv();
         getfc();
+        getSc();
+
         getAdmobon();
         getNc();
+    }
+
+    private void getSc() {
+        referenceadmob.child("sc").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                sc = String.valueOf(dataSnapshot.getValue());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void getNc() {
@@ -138,7 +156,9 @@ public class Fun {
             adView = new AdView(activity);
             adView.setAdUnitId(activity.getString(R.string.admob_banner_id));
             adContainerView.addView(adView);
-            loadBanner(activity);
+            if (!sc.equals("0")) {
+                loadBanner(activity);
+            }
         }
     }
 
